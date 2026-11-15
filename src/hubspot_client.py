@@ -49,22 +49,6 @@ def error_message(res):
         return res.text
 
 
-def create_object(obj_type, props):
-    return request("POST", f"/crm/v3/objects/{obj_type}", body={"properties": props})
-
-
-def create_contact(props):
-    return create_object("contacts", props)
-
-
-def create_company(props):
-    return create_object("companies", props)
-
-
-def create_deal(props):
-    return create_object("deals", props)
-
-
 def get_objects(obj_type, props):
     results = []
     params = {"limit": 100, "properties": ",".join(props)}
@@ -87,18 +71,6 @@ def get_companies(props=("name", "domain")):
 
 def get_deals(props=("dealname", "amount", "dealstage")):
     return get_objects("deals", props)
-
-
-def find_one(obj_type, prop, value):
-    body = {
-        "filterGroups": [{"filters": [{"propertyName": prop, "operator": "EQ", "value": value}]}],
-        "properties": [prop],
-        "limit": 1,
-    }
-    data = request("POST", f"/crm/v3/objects/{obj_type}/search", body=body)
-    if data["results"]:
-        return data["results"][0]
-    return None
 
 
 def count_contacts():

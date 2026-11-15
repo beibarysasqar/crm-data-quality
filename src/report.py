@@ -42,22 +42,6 @@ def write_report(found, name, folder=REPORTS_DIR):
     return path
 
 
-def read_summary(path):
-    if not Path(path).exists():
-        sys.exit(f"{path} not found, run report.py first")
-    return pd.read_excel(path, sheet_name="summary")
-
-
-def compare_reports(path_was, path_became):
-    was = read_summary(path_was).rename(columns={"count": "was"})
-    became = read_summary(path_became).rename(columns={"count": "became"})
-    res = was.merge(became, on="rule", how="outer")
-    # a rule can be missing in one of the files if it was added later
-    res[["was", "became"]] = res[["was", "became"]].fillna(0).astype(int)
-    res.loc[len(res)] = ["total", res["was"].sum(), res["became"].sum()]
-    return res
-
-
 def main():
     name = sys.argv[1] if len(sys.argv) > 1 else "before"
     contacts = qc.read_csv("contacts.csv")

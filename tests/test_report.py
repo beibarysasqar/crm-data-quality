@@ -59,19 +59,3 @@ def test_write_report_clean_data(tmp_path):
     sheets = pd.read_excel(path, sheet_name=None)
     assert len(sheets["problems"]) == 0
     assert sheets["summary"]["count"].sum() == 0
-
-
-def test_compare_reports(tmp_path):
-    before = make_found(["", "", "bad", "a@x.com"], ["", "5"])
-    after = make_found(["", "b@x.com", "c@x.com", "a@x.com"], ["7", "5"])
-    p1 = report.write_report(before, "before", tmp_path)
-    p2 = report.write_report(after, "after", tmp_path)
-
-    res = report.compare_reports(p1, p2)
-    assert list(res.columns) == ["rule", "was", "became"]
-    res = res.set_index("rule")
-    assert list(res.loc["empty_email"]) == [2, 1]
-    assert list(res.loc["bad_email_format"]) == [1, 0]
-    assert list(res.loc["deal_without_amount"]) == [1, 0]
-    assert list(res.loc["total"]) == [4, 1]
-    assert res.index[-1] == "total"
