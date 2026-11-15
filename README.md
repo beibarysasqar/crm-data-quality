@@ -1,13 +1,13 @@
 # CRM data quality and ABM segmentation
 
-A small learning project. It generates fake CRM data (50 companies, 300 contacts,
-30 deals) with errors put in on purpose and loads it into a HubSpot free account.
+The project generates fake CRM data (50 companies, 300 contacts,
+30 deals) with errors put in on purpose and loads it into HubSpot.
 Then it finds the errors with five Python rules, cleans the data in two passes
-and ranks the companies into three ABM (account-based marketing) tiers.
+and ranks the companies into three ABM tiers.
 
 ## How to run
 
-You need Python 3 and a HubSpot private app token with read/write scopes for
+You need Python and a HubSpot private app token for
 contacts, companies and deals, and write access to company properties.
 
     pip install -r requirements.txt
@@ -72,8 +72,8 @@ for having a domain and 1 for having an industry. A score of 7 or more is Tier 1
 | Tier 2 |        18 |  729,000 |
 | Tier 3 |        26 |   23,000 |
 
-That is 51 companies and not 50, because a new HubSpot account comes with its
-own sample company (hubspot.com) and it was scored too. It is in Tier 3.
+That is 51 companies and not 50: a new HubSpot account comes with its own
+sample company and it was scored too. It is in Tier 3.
 
 Files in `reports/`:
 

@@ -59,7 +59,7 @@ def load_companies(df, apply):
         if domain:
             existing[domain.lower()] = c["id"]
 
-    # CSV company_id -> HubSpot id, None when the company is not created yet (dry run)
+    # CSV company_id -> HubSpot id
     ids = {}
     created = skipped = 0
     for row in df.to_dict("records"):

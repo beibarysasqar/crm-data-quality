@@ -7,7 +7,6 @@ import quality_checks as qc
 
 REPORTS_DIR = Path(__file__).resolve().parent.parent / "reports"
 
-# "row" is a line number in contacts.csv, or in deals.csv for the deal rule
 DESCRIPTIONS = {
     "empty_email": "Contact has no email",
     "bad_email_format": "Email does not look like name@domain.tld",
